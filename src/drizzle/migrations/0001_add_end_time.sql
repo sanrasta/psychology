@@ -1,0 +1,1 @@
+ALTER TABLE "schedule_availabilities" ADD COLUMN "endTime" text NOT NULL; 
