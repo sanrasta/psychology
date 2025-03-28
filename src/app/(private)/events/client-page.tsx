@@ -52,7 +52,7 @@ export function EventsPageClient({ events }: EventsPageClientProps) {
                 <UserButton afterSignOutUrl="/" />
               </div>
               <span className="text-2xl font-bold text-slate-800">
-                Dra. <span className="text-blue-600">Blanca Estela</span>
+                Dra. <span className="text-blue-600">Blanca Stella</span>
               </span>
             </motion.div>
 

@@ -167,10 +167,10 @@ export default function HomePage() {
                   <UserButton afterSignOutUrl="/" />
                 </div>
               ) : (
-                <Image src="/blancaestela.JPG" alt="Logo" width={50} height={50} className="rounded-full" />
+                <Image src="/blanca.JPG" alt="Logo" width={50} height={50} className="rounded-full" />
               )}
               <span className="text-2xl font-bold text-slate-800">
-                Dra. <span className="text-blue-600">Blanca Estela</span>
+                Dra. <span className="text-blue-600">Blanca Stella</span>
               </span>
             </motion.div>
 
@@ -362,7 +362,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-radial from-blue-50/20 to-slate-50/50 z-0"></div>
           
           <Image
-            src="/blancaestela.JPG"
+            src="/blanca.JPG"
             alt="Hero Background"
             fill
             priority
@@ -598,7 +598,7 @@ export default function HomePage() {
                   <div className="flex items-center">
                     <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-600/20 flex-shrink-0">
                       <Image
-                        src="/blancaestela.JPG"
+                        src="/blanca.JPG"
                         alt="Paciente 1"
                         width={56}
                         height={56}
@@ -641,7 +641,7 @@ export default function HomePage() {
                   <div className="flex items-center">
                     <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-600/20 flex-shrink-0">
                       <Image
-                        src="/blancaestela.JPG"
+                        src="/blanca.JPG"
                         alt="Paciente 2"
                         width={56}
                         height={56}
