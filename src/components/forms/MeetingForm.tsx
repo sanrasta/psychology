@@ -46,7 +46,7 @@ type MeetingFormProps = {
   validTimes: Date[]
   eventId: string
   clerkUserId: string
-  locationType?: string
+  locationType?: "in-person" | "virtual"
 }
 
 export function MeetingForm({
@@ -65,7 +65,7 @@ export function MeetingForm({
       guestName: "",
       guestEmail: "",
       guestNotes: "",
-      locationType: locationType,
+      locationType: locationType as "in-person" | "virtual",
     },
   })
 
@@ -143,21 +143,21 @@ export function MeetingForm({
           name="locationType"
           render={({ field }) => (
             <FormItem className="mb-4">
-              <FormLabel>How would you like to meet?</FormLabel>
+              <FormLabel className="text-slate-700">¿Cómo te gustaría reunirte?</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue />
+                  <SelectTrigger className="bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400 text-slate-500">
+                    <SelectValue placeholder="Selecciona en persona o virtual" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value="in-person">
+                <SelectContent className="bg-white border-slate-200">
+                  <SelectItem value="in-person" className="hover:bg-blue-50 focus:bg-blue-50 text-slate-900 hover:text-slate-900 focus:text-slate-900">
                     <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-2 text-yellow-500" />
-                      <span>In Person</span>
+                      <MapPin className="h-4 w-4 mr-2 text-teal-500" />
+                      <span>Presencial</span>
                     </div>
                   </SelectItem>
-                  <SelectItem value="virtual">
+                  <SelectItem value="virtual" className="hover:bg-blue-50 focus:bg-blue-50 text-slate-900 hover:text-slate-900 focus:text-slate-900">
                     <div className="flex items-center">
                       <Video className="h-4 w-4 mr-2 text-blue-500" />
                       <span>Virtual (Google Meet)</span>
@@ -165,10 +165,10 @@ export function MeetingForm({
                   </SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription>
+              <FormDescription className="text-slate-500">
                 {selectedLocationType === "virtual" ? 
-                  "A Google Meet link will be created automatically and included in your calendar invitation." :
-                  "In-person meeting details will be provided in your calendar invitation."}
+                  "Se creará automáticamente un enlace de Google Meet y se incluirá en tu invitación al calendario." :
+                  "Los detalles de la reunión presencial se proporcionarán en tu invitación al calendario."}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -180,16 +180,20 @@ export function MeetingForm({
           name="timezone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Timezone</FormLabel>
+              <FormLabel className="text-slate-700">Zona Horaria</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue />
+                  <SelectTrigger className="bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400 text-slate-500">
+                    <SelectValue placeholder="Selecciona tu zona horaria" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
+                <SelectContent className="bg-white border-slate-200">
                   {Intl.supportedValuesOf("timeZone").map(timezone => (
-                    <SelectItem key={timezone} value={timezone}>
+                    <SelectItem 
+                      key={timezone} 
+                      value={timezone}
+                      className="hover:bg-blue-50 focus:bg-blue-50 text-slate-900 hover:text-slate-900 focus:text-slate-900"
+                    >
                       {timezone}
                       {` (${formatTimezoneOffset(timezone)})`}
                     </SelectItem>
@@ -208,20 +212,20 @@ export function MeetingForm({
             render={({ field }) => (
               <Popover>
                 <FormItem className="flex-1">
-                  <FormLabel>Date</FormLabel>
+                  <FormLabel className="text-slate-700">Fecha</FormLabel>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
                         variant="outline"
                         className={cn(
-                          "pl-3 text-left font-normal flex w-full",
-                          !field.value && "text-muted-foreground"
+                          "pl-3 text-left font-normal flex w-full bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-900",
+                          !field.value && "text-slate-500"
                         )}
                       >
                         {field.value ? (
-                          formatDate(field.value)
+                          <span className="text-slate-900">{formatDate(field.value)}</span>
                         ) : (
-                          <span>Pick a date</span>
+                          <span>Selecciona una fecha</span>
                         )}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
@@ -234,6 +238,29 @@ export function MeetingForm({
                       onSelect={field.onChange}
                       disabled={date => !isDateAvailable(date)}
                       initialFocus
+                      className="bg-white border-slate-200"
+                      classNames={{
+                        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                        month: "space-y-4",
+                        caption: "flex justify-center pt-1 relative items-center",
+                        caption_label: "text-sm font-medium text-slate-900",
+                        nav: "space-x-1 flex items-center",
+                        nav_button: "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 text-slate-900",
+                        nav_button_previous: "absolute left-1",
+                        nav_button_next: "absolute right-1",
+                        table: "w-full border-collapse space-y-1",
+                        head_row: "flex",
+                        head_cell: "text-slate-500 rounded-md w-9 font-normal text-[0.8rem]",
+                        row: "flex w-full mt-2",
+                        cell: "text-center text-sm p-0 relative [&:has([aria-selected])]:bg-blue-50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+                        day: "h-9 w-9 p-0 font-normal aria-selected:opacity-100 text-slate-900",
+                        day_selected: "bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700",
+                        day_today: "bg-slate-100 text-slate-900",
+                        day_outside: "text-slate-400 opacity-50",
+                        day_disabled: "text-slate-400 opacity-50",
+                        day_range_middle: "aria-selected:bg-blue-50 aria-selected:text-slate-900",
+                        day_hidden: "invisible",
+                      }}
                     />
                   </PopoverContent>
                   <FormMessage />
@@ -246,7 +273,7 @@ export function MeetingForm({
             name="startTime"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Time</FormLabel>
+                <FormLabel className="text-slate-700">Hora</FormLabel>
                 <Select
                   disabled={date == null || timezone == null}
                   onValueChange={value =>
@@ -255,23 +282,24 @@ export function MeetingForm({
                   defaultValue={field.value?.toISOString()}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400 text-slate-500">
                       <SelectValue
                         placeholder={
                           date == null || timezone == null
-                            ? "Select a date/timezone first"
-                            : "Select a meeting time"
+                            ? "Selecciona primero una fecha/zona horaria"
+                            : "Selecciona una hora"
                         }
                       />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-white border-slate-200">
                     {validTimesInTimezone
                       .filter(time => date && isSameDay(time, date))
                       .map(time => (
                         <SelectItem
                           key={time.toISOString()}
                           value={time.toISOString()}
+                          className="hover:bg-blue-50 focus:bg-blue-50 text-slate-900 hover:text-slate-900 focus:text-slate-900"
                         >
                           {formatTimeString(time)}
                         </SelectItem>
@@ -289,9 +317,12 @@ export function MeetingForm({
             name="guestName"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Your Name</FormLabel>
+                <FormLabel className="text-slate-700">Tu Nombre</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input 
+                    {...field} 
+                    className="bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -302,9 +333,13 @@ export function MeetingForm({
             name="guestEmail"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Your Email</FormLabel>
+                <FormLabel className="text-slate-700">Tu Email</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} />
+                  <Input 
+                    type="email" 
+                    {...field} 
+                    className="bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -316,9 +351,12 @@ export function MeetingForm({
           name="guestNotes"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Notes</FormLabel>
+              <FormLabel className="text-slate-700">Notas</FormLabel>
               <FormControl>
-                <Textarea className="resize-none" {...field} />
+                <Textarea 
+                  className="resize-none bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400" 
+                  {...field} 
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -331,11 +369,16 @@ export function MeetingForm({
             type="button"
             asChild
             variant="outline"
+            className="border-slate-200 hover:bg-slate-100"
           >
-            <Link href="/events">Cancel</Link>
+            <Link href="/events">Cancelar</Link>
           </Button>
-          <Button disabled={submitting} type="submit">
-            {submitting ? "Scheduling..." : "Schedule"}
+          <Button 
+            disabled={submitting} 
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            {submitting ? "Agendando..." : "Agendar"}
           </Button>
         </div>
       </form>

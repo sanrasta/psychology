@@ -12,12 +12,12 @@ import Loading from "@/components/Loading";
 // Simple static logo component instead of animated version
 function Logo() {
   return (
-    <div className="flex flex-col items-center space-y-3 mt-24 sm:mt-0">
+    <div className="flex flex-col items-center space-y-3 mt-4 sm:mt-0">
       <div className="flex items-center space-x-1">
-        <div className="w-5 h-5 bg-red-500 rounded-sm"></div>
+        <div className="w-5 h-5 bg-teal-400 rounded-sm"></div>
         <div className="w-5 h-5 bg-blue-500 rounded-sm"></div>
-        <div className="w-5 h-5 bg-green-500 rounded-sm"></div>
-        <div className="w-5 h-5 bg-yellow-500 rounded-sm"></div>
+        <div className="w-5 h-5 bg-indigo-500 rounded-sm"></div>
+        <div className="w-5 h-5 bg-purple-500 rounded-sm"></div>
       </div>
     </div>
   );
@@ -27,8 +27,8 @@ function Logo() {
 function AnimatedText() {
   return (
     <div className="relative h-20 overflow-hidden">
-      <h1 className="text-center text-4xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-white to-red-500 tracking-tight">
-        TRANSFORM YOUR FITNESS
+      <h1 className="text-center text-4xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-600 tracking-tight">
+        BIENESTAR EMOCIONAL
       </h1>
     </div>
   );
@@ -143,11 +143,11 @@ export default function HomePage() {
   return (
     <>
       {isLoading && <Loading />}
-      <div className="bg-black overflow-auto">
+      <div className="bg-slate-50 overflow-auto">
         {/* Navbar */}
         <motion.header
           className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-            scrolled ? "bg-gray-800/90 backdrop-blur-sm" : "bg-black/50"
+            scrolled ? "bg-white/90 backdrop-blur-sm shadow-sm" : "bg-transparent"
           }`}
           initial={{ y: -100 }}
           animate={{ y: 0 }}
@@ -162,31 +162,37 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               onClick={scrollToTop}
             >
-              {isSignedIn ? <UserButton /> : <Image src="/rio.png" alt="Logo" width={50} height={50} className="rounded-full" />}
-              <span className="text-2xl font-bold">
-                Your <span className="text-red-500">Coaching</span>
+              {isSignedIn ? (
+                <div className="w-[50px] h-[50px]">
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              ) : (
+                <Image src="/blancaestela.JPG" alt="Logo" width={50} height={50} className="rounded-full" />
+              )}
+              <span className="text-2xl font-bold text-slate-800">
+                Dra. <span className="text-blue-600">Blanca Estela</span>
               </span>
             </motion.div>
 
             {/* Desktop Navigation */}
             <motion.nav 
-              className="hidden md:flex space-x-6 text-lg items-center text-gray-200"
+              className="hidden md:flex space-x-6 text-lg items-center text-slate-600"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              {["Services", "Testimonials", "Contact"].map((item, index) => (
+              {["Servicios", "Testimonios", "Contacto"].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="hover:text-red-500 relative group font-medium"
+                  className="hover:text-blue-600 relative group font-medium"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                 >
                   {item}
                   <motion.span 
-                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"
+                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
                     initial={{ width: "0%" }}
                     whileHover={{ width: "100%" }}
                   />
@@ -201,11 +207,11 @@ export default function HomePage() {
                 >
                   <button 
                     onClick={navigateToEvents}
-                    className="hover:text-red-500 relative group font-medium"
+                    className="hover:text-blue-600 relative group font-medium"
                   >
-                    Events
+                    Citas
                     <motion.span 
-                      className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"
+                      className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
                       initial={{ width: "0%" }}
                       whileHover={{ width: "100%" }}
                     />
@@ -218,10 +224,10 @@ export default function HomePage() {
                   transition={{ duration: 0.4, delay: 0.6 }}
                 >
                   <SignInButton>
-                    <button className="hover:text-red-500 relative group font-medium">
-                      Bookings
+                    <button className="hover:text-blue-600 relative group font-medium">
+                      Reservar
                       <motion.span 
-                        className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"
+                        className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
                         initial={{ width: "0%" }}
                         whileHover={{ width: "100%" }}
                       />
@@ -230,12 +236,12 @@ export default function HomePage() {
                 </motion.div>
               )}
               <button 
-                className="hover:text-red-500 relative group font-medium"
+                className="hover:text-blue-600 relative group font-medium"
                 onClick={scrollToTop}
               >
-                Home
+                Inicio
                 <motion.span 
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"
+                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
                   initial={{ width: "0%" }}
                   whileHover={{ width: "100%" }}
                 />
@@ -249,7 +255,7 @@ export default function HomePage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <button onClick={toggleMobileMenu} className="focus:outline-none text-white">
+              <button onClick={toggleMobileMenu} className="focus:outline-none text-slate-600">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {mobileMenuOpen ? (
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -298,7 +304,7 @@ export default function HomePage() {
                   Home
                 </motion.button>
                 
-                {["Services", "Testimonials", "Contact"].map((item, index) => (
+                {["Servicios", "Testimonios", "Contacto"].map((item, index) => (
                   <motion.a
                     key={item}
                     href={`#${item.toLowerCase()}`}
@@ -326,7 +332,7 @@ export default function HomePage() {
                       }}
                       className="hover:text-red-500 transition-all duration-300"
                     >
-                      Events
+                      Citas
                     </button>
                   </motion.div>
                 ) : (
@@ -340,7 +346,7 @@ export default function HomePage() {
                         className="hover:text-red-500 transition-all duration-300" 
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        Bookings
+                        Reservar
                       </button>
                     </SignInButton>
                   </motion.div>
@@ -353,50 +359,47 @@ export default function HomePage() {
         {/* Hero Section: Fullscreen background with animated text and particles */}
         <section id="hero" ref={heroRef} className="relative h-screen flex flex-col items-center justify-between py-24 overflow-hidden">
           {/* Background elements remain the same */}
-          <div className="absolute inset-0 bg-gradient-radial from-gray-800/20 to-black/50 z-0"></div>
+          <div className="absolute inset-0 bg-gradient-radial from-blue-50/20 to-slate-50/50 z-0"></div>
           
           <Image
-            src="/rio.png"
+            src="/blancaestela.JPG"
             alt="Hero Background"
             fill
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
             quality={75}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover", objectPosition: "center 35%" }}
             className="grayscale opacity-100"
             loading="eager"
             fetchPriority="high"
           />
           
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/30 via-slate-50/20 to-slate-50"></div>
 
           {/* Content restructured for better positioning */}
-          <div className="relative z-10 flex flex-col items-center justify-between h-full w-full px-4 max-w-5xl mx-auto">
-            {/* Empty space at top to push logo to center */}
-            <div className="flex-grow"></div>
-            
-            {/* Logo in center of screen */}
-            <div className="mb-12">
+          <div className="relative z-10 flex flex-col items-center justify-start h-full w-full px-4 max-w-5xl mx-auto pt-16">
+            {/* Logo at the top */}
+            <div className="mb-8">
               <Logo />
             </div>
             
             {/* Lower text section */}
-            <div className="flex flex-col items-center mb-16">
+            <div className="flex flex-col items-center mt-auto mb-16">
               <div className="mb-8">
                 <AnimatedText />
               </div>
               
-              <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl text-center">
-                Elite coaching that transforms your fitness journey through personalized training and proven results.
+              <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl text-center">
+                Psicología clínica especializada en acompañarte en tu camino hacia el bienestar emocional y mental.
               </p>
 
               <div
                 className="hover:scale-105 transition-transform duration-300"
               >
                 <SignInButton>
-                  <Button className="bg-red-500 hover:bg-red-700 text-white text-lg md:text-2xl px-8 md:px-10 py-6 md:py-7 rounded-xl shadow-[0_0_15px_rgba(220,38,38,0.5)] font-bold transition-all duration-300 ease-in-out w-full md:w-auto">
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white text-lg md:text-2xl px-8 md:px-10 py-6 md:py-7 rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.5)] font-bold transition-all duration-300 ease-in-out w-full md:w-auto">
                     <span className="relative">
-                      Sign In & Book NOW!
+                      Reserva tu Consulta
                     </span>
                   </Button>
                 </SignInButton>
@@ -408,51 +411,49 @@ export default function HomePage() {
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
             <a
               href="#conversion"
-              className="text-white flex flex-col items-center animate-bounce"
+              className="text-slate-600 flex flex-col items-center animate-bounce"
             >
-              <span className="mb-2 text-sm uppercase tracking-widest">Discover More</span>
+              <span className="mb-2 text-sm uppercase tracking-widest">Conoce Más</span>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </a>
           </div>
         </section>
 
         {/* Conversion Section with animations - optimized for performance */}
-        <section id="conversion" className="py-28 relative overflow-hidden">
+        <section id="conversion" className="py-28 relative overflow-hidden bg-slate-50">
           <div 
-            className="absolute -top-20 -left-20 w-80 h-80 bg-red-500/10 rounded-full blur-3xl"
+            className="absolute -top-20 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"
           />
           <div
-            className="absolute -bottom-40 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+            className="absolute -bottom-40 -right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
           />
           
           <div className="container mx-auto px-4 text-center relative z-10">
             <AnimatedSection>
-              <h2 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight text-white">
-                Transform Your <span className="text-red-500 relative">Body & Life
+              <h2 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight text-slate-800">
+                Transforma tu <span className="text-blue-600 relative">Vida
                   <span 
-                    className="absolute -bottom-2 left-0 w-full h-1 bg-red-500/50"
+                    className="absolute -bottom-2 left-0 w-full h-1 bg-blue-500/50"
                   />
                 </span>
               </h2>
             </AnimatedSection>
             
             <AnimatedSection delay={0.2}>
-              <p className="max-w-2xl mx-auto text-gray-300 text-xl mb-12 leading-relaxed">
-                Discover the proven fitness strategies that turn hard work into rapid results.
-                Our personalized coaching system is designed to help you achieve peak performance
-                and unlock your ultimate potential.
+              <p className="max-w-2xl mx-auto text-slate-600 text-xl mb-12 leading-relaxed">
+                Descubre un espacio seguro donde encontrarás las herramientas necesarias para tu desarrollo personal y bienestar emocional.
               </p>
             </AnimatedSection>
             
             <AnimatedSection delay={0.4}>
               <div className="hover:scale-105 hover:-translate-y-1 transition-all duration-200">
-                <Link href="#contact">
-                  <Button className="bg-gradient-to-br from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white py-6 px-4 md:px-10 rounded-full text-base md:text-xl font-semibold shadow-lg transition-all duration-300 w-full md:w-auto">
+                <Link href="#contacto">
+                  <Button className="bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-6 px-4 md:px-10 rounded-full text-base md:text-xl font-semibold shadow-lg transition-all duration-300 w-full md:w-auto">
                     <span className="block px-2 md:px-0">
-                      <span className="hidden md:inline">Book Your Free Consultation Now</span>
-                      <span className="md:hidden">Book Free Consultation</span>
+                      <span className="hidden md:inline">Reserva tu Consulta Inicial</span>
+                      <span className="md:hidden">Reserva Consulta</span>
                     </span>
                   </Button>
                 </Link>
@@ -462,7 +463,7 @@ export default function HomePage() {
         </section>
 
         {/* Services Section with animations */}
-        <section id="services" className="py-28 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+        <section id="servicios" className="py-28 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
           <div className="container mx-auto px-4">
             <AnimatedSection>
               <div className="text-center mb-16">
@@ -471,19 +472,19 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8 }}
                 >
-                  <h2 className="text-4xl md:text-6xl font-bold relative inline-block text-white">
-                    Our <span className="text-red-500">Services</span>
+                  <h2 className="text-4xl md:text-6xl font-bold relative inline-block text-slate-800">
+                    Nuestros <span className="text-blue-600">Servicios</span>
                     <motion.div 
-                      className="absolute -bottom-3 left-0 h-1 bg-red-500/30"
+                      className="absolute -bottom-3 left-0 h-1 bg-blue-600/30"
                       initial={{ width: 0 }}
                       whileInView={{ width: "100%" }}
                       transition={{ duration: 1, delay: 0.5 }}
                     />
                   </h2>
                 </motion.div>
-                <p className="text-gray-300 text-xl mt-6">
-                  Elevate your training with personalized programs designed for{" "}
-                  <span className="font-semibold text-red-500">optimal results</span>.
+                <p className="text-slate-600 text-xl mt-6">
+                  Atención psicológica especializada para{" "}
+                  <span className="font-semibold text-blue-600">tu bienestar emocional</span>.
                 </p>
               </div>
             </AnimatedSection>
@@ -491,27 +492,27 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  title: "Personal Training",
-                  description: "Customized one-on-one sessions focused on your unique fitness goals.",
-                  color: "red",
-                  rgbColor: "239, 68, 68"
+                  title: "Terapia Individual",
+                  description: "Sesiones personalizadas enfocadas en tu desarrollo personal y bienestar emocional.",
+                  color: "teal",
+                  rgbColor: "45, 212, 191"
                 },
                 {
-                  title: "Group Classes",
-                  description: "High-energy group workouts that keep you motivated and accountable.",
+                  title: "Terapia de Pareja",
+                  description: "Acompañamiento especializado para fortalecer y mejorar tu relación de pareja.",
                   color: "blue",
                   rgbColor: "59, 130, 246"
                 },
                 {
-                  title: "Nutrition Coaching",
-                  description: "Expert nutritional advice tailored to fuel your workouts and accelerate recovery.",
-                  color: "green",
-                  rgbColor: "34, 197, 94"
+                  title: "Terapia Familiar",
+                  description: "Intervención terapéutica para mejorar la dinámica y comunicación familiar.",
+                  color: "indigo",
+                  rgbColor: "99, 102, 241"
                 }
               ].map((service, index) => (
                 <AnimatedSection key={service.title} delay={0.2 * index}>
                   <motion.div 
-                    className="bg-gray-800/80 backdrop-blur-sm p-8 rounded-2xl h-full group cursor-pointer"
+                    className="bg-white p-8 rounded-2xl h-full group cursor-pointer shadow-lg"
                     whileHover={{ 
                       y: -10,
                       boxShadow: `0 10px 30px -5px rgba(${service.rgbColor},0.5)`
@@ -523,22 +524,30 @@ export default function HomePage() {
                     } as React.CSSProperties}
                   >
                     <motion.div 
-                      className={`w-16 h-16 rounded-xl mb-6 flex items-center justify-center bg-${service.color}-500/20`}
+                      className={`w-10 h-10 rounded-xl mb-4 flex items-center justify-center ${
+                        service.color === 'teal' ? 'bg-teal-500/20' :
+                        service.color === 'blue' ? 'bg-blue-500/20' :
+                        'bg-indigo-500/20'
+                      }`}
                       animate={{ rotate: [0, 10, 0, -10, 0] }}
                       transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <div className={`w-8 h-8 bg-${service.color}-500 rounded-lg`}></div>
+                      <div className={`w-5 h-5 rounded-lg ${
+                        service.color === 'teal' ? 'bg-teal-500' :
+                        service.color === 'blue' ? 'bg-blue-500' :
+                        'bg-indigo-500'
+                      }`}></div>
                     </motion.div>
                     
                     <h3 className="text-2xl font-bold mb-4">
-                      <span className={`inline-block transition-all duration-300 group-hover:text-${service.color}-500 first-word`}>
+                      <span className="inline-block text-slate-800 first-word">
                         {service.title.split(" ")[0]}
                       </span>{" "}
-                      <span className={`text-${service.color}-500`}>
+                      <span className="text-blue-700">
                         {service.title.split(" ").slice(1).join(" ")}
                       </span>
                     </h3>
-                    <p className="text-gray-400 text-lg">
+                    <p className="text-slate-700 text-lg">
                       {service.description}
                     </p>
                   </motion.div>
@@ -549,22 +558,22 @@ export default function HomePage() {
         </section>
 
         {/* Testimonials Section - Professional Design */}
-        <section id="testimonials" className="py-28 relative overflow-hidden">
+        <section id="testimonios" className="py-28 relative overflow-hidden">
           {/* Subtle background element */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-black/90 z-0"></div>
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-500/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-slate-50/90 z-0"></div>
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/20 to-transparent"></div>
           
           <div className="container mx-auto px-4 relative z-10">
             <AnimatedSection>
               <div className="flex flex-col items-center mb-16">
                 <div className="inline-block mb-3">
-                  <div className="w-10 h-1 bg-red-500 mx-auto"></div>
+                  <div className="w-10 h-1 bg-blue-600 mx-auto"></div>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white">
-                  Client <span className="text-red-500">Testimonials</span>
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-800">
+                  Testimonios de <span className="text-blue-600">Pacientes</span>
                 </h2>
-                <p className="text-gray-300 text-lg mt-4 max-w-2xl text-center">
-                  Discover what our clients have to say about their transformative experiences with our premium coaching services.
+                <p className="text-slate-600 text-lg mt-4 max-w-2xl text-center">
+                  Descubre las experiencias transformadoras de quienes han encontrado bienestar emocional a través de nuestra terapia.
                 </p>
               </div>
             </AnimatedSection>
@@ -572,34 +581,34 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <AnimatedSection delay={0.1}>
                 <motion.div 
-                  className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 relative overflow-hidden border border-gray-700/20 shadow-xl"
-                  whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.5)" }}
+                  className="bg-white rounded-xl p-8 relative overflow-hidden border border-slate-200 shadow-xl"
+                  whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)" }}
                   transition={{ duration: 0.3 }}
                 >
                   <div className="absolute top-0 right-0 w-40 h-40 -m-16 opacity-10">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-red-500">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-blue-600">
                       <path d="M9 7.5l-4.5 4.5h3l-6 9h7.5l6-9h-3l4.5-4.5h-7.5z" fill="currentColor"/>
                     </svg>
                   </div>
                   
-                  <div className="text-xl text-gray-200 font-light italic leading-relaxed mb-8">
-                    "<span className="text-white font-medium">The personalized approach</span> at <span className="text-red-400">Your Coaching</span> helped me break through my plateau and achieve the body I've always wanted. The attention to detail in their programs is unmatched in the industry."
+                  <div className="text-xl text-slate-600 font-light italic leading-relaxed mb-8">
+                    "<span className="text-slate-800 font-medium">La terapia individual</span> con la Dra. Ana me ayudó a superar mis ansiedades y encontrar un nuevo sentido de paz interior. Su enfoque profesional y empático hizo toda la diferencia."
                   </div>
                   
                   <div className="flex items-center">
-                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-red-500/20 flex-shrink-0">
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-600/20 flex-shrink-0">
                       <Image
-                        src="/rio.png"
-                        alt="Client 1"
+                        src="/blancaestela.JPG"
+                        alt="Paciente 1"
                         width={56}
                         height={56}
                         className="object-cover"
                       />
                     </div>
                     <div className="ml-4">
-                      <p className="font-semibold text-white text-lg">John Doe</p>
+                      <p className="font-semibold text-slate-800 text-lg">María González</p>
                       <div className="flex items-center">
-                        <p className="text-gray-400 text-sm">Executive • Fitness Enthusiast</p>
+                        <p className="text-slate-500 text-sm">Profesional • 35 años</p>
                         <div className="flex ml-2">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <svg key={star} className="w-3 h-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
@@ -615,34 +624,34 @@ export default function HomePage() {
               
               <AnimatedSection delay={0.3}>
                 <motion.div 
-                  className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 relative overflow-hidden border border-gray-700/20 shadow-xl"
-                  whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.5)" }}
+                  className="bg-white rounded-xl p-8 relative overflow-hidden border border-slate-200 shadow-xl"
+                  whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)" }}
                   transition={{ duration: 0.3 }}
                 >
                   <div className="absolute top-0 right-0 w-40 h-40 -m-16 opacity-10">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-red-500">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-blue-600">
                       <path d="M9 7.5l-4.5 4.5h3l-6 9h7.5l6-9h-3l4.5-4.5h-7.5z" fill="currentColor"/>
                     </svg>
                   </div>
                   
-                  <div className="text-xl text-gray-200 font-light italic leading-relaxed mb-8">
-                    "Their coaching transformed <span className="text-white font-medium">not just my physique, but my mindset</span>. I now believe in achieving the impossible. The level of expertise and dedication from their team is exceptional."
+                  <div className="text-xl text-slate-600 font-light italic leading-relaxed mb-8">
+                    "La <span className="text-slate-800 font-medium">terapia de pareja</span> nos ayudó a reconstruir nuestra relación. La Dra. Ana nos guió con profesionalismo y empatía, permitiéndonos encontrar una nueva forma de comunicarnos y entendernos."
                   </div>
                   
                   <div className="flex items-center">
-                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-red-500/20 flex-shrink-0">
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-600/20 flex-shrink-0">
                       <Image
-                        src="/rio.png"
-                        alt="Client 2"
+                        src="/blancaestela.JPG"
+                        alt="Paciente 2"
                         width={56}
                         height={56}
                         className="object-cover"
                       />
                     </div>
                     <div className="ml-4">
-                      <p className="font-semibold text-white text-lg">Jane Smith</p>
+                      <p className="font-semibold text-slate-800 text-lg">Carlos y Laura Ramírez</p>
                       <div className="flex items-center">
-                        <p className="text-gray-400 text-sm">Professional Athlete • Marathon Runner</p>
+                        <p className="text-slate-500 text-sm">Pareja • 5 años de relación</p>
                         <div className="flex ml-2">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <svg key={star} className="w-3 h-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
@@ -660,20 +669,20 @@ export default function HomePage() {
         </section>
 
         {/* Contact Section - Premium Design */}
-        <section id="contact" className="py-32 relative overflow-hidden">
+        <section id="contacto" className="py-32 relative overflow-hidden bg-white">
           {/* Premium background elements */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-black/95 z-0"></div>
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-500/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white/95 z-0"></div>
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/20 to-transparent"></div>
           
           {/* Animated accent elements - optimized for scroll performance */}
           <motion.div 
-            className="absolute -top-40 right-0 w-96 h-96 rounded-full bg-red-500/5 blur-3xl"
+            className="absolute -top-40 right-0 w-96 h-96 rounded-full bg-blue-500/5 blur-3xl"
             initial={{ opacity: 0.3 }}
             animate={{ opacity: 0.5 }}
             transition={{ duration: 5, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
           />
           <motion.div 
-            className="absolute bottom-0 -left-40 w-96 h-96 rounded-full bg-blue-500/5 blur-3xl"
+            className="absolute bottom-0 -left-40 w-96 h-96 rounded-full bg-indigo-500/5 blur-3xl"
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 0.4 }}
             transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
@@ -683,13 +692,13 @@ export default function HomePage() {
             <AnimatedSection>
               <div className="flex flex-col items-center mb-16">
                 <div className="inline-block mb-3">
-                  <div className="w-10 h-1 bg-red-500 mx-auto"></div>
+                  <div className="w-10 h-1 bg-blue-600 mx-auto"></div>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white">
-                  Premium <span className="text-red-500">Consultation</span>
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-800">
+                  Consulta <span className="text-blue-600">Inicial</span>
                 </h2>
-                <p className="text-gray-300 text-lg mt-4 max-w-2xl text-center">
-                  Elevate your fitness journey with a personalized consultation from our expert coaching team.
+                <p className="text-slate-600 text-lg mt-4 max-w-2xl text-center">
+                  Da el primer paso hacia tu bienestar emocional con una consulta personalizada.
                 </p>
               </div>
             </AnimatedSection>
@@ -698,72 +707,72 @@ export default function HomePage() {
               {/* Left side info panel */}
               <AnimatedSection delay={0.1} className="md:col-span-2">
                 <motion.div 
-                  className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-gray-700/20 h-full shadow-xl"
+                  className="bg-white p-8 rounded-xl border border-slate-200 h-full shadow-xl"
                   whileHover={{ scale: 1.01 }}
                   transition={{ duration: 0.3 }}
                 >
                   <div className="space-y-8">
                     <div>
-                      <h3 className="text-xl font-semibold text-white mb-2 flex items-center">
+                      <h3 className="text-xl font-semibold text-slate-800 mb-2 flex items-center">
                         <motion.div 
                           initial={{ rotateY: 0 }}
                           animate={{ rotateY: 360 }}
                           transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                          className="mr-3 text-red-500"
+                          className="mr-3 text-blue-600"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                         </motion.div>
-                        Why Choose Us
+                        ¿Por qué elegirnos?
                       </h3>
-                      <p className="text-gray-300 leading-relaxed">
-                        Our elite coaching team brings over 20 years of experience with a personalized approach that guarantees results.
+                      <p className="text-slate-600 leading-relaxed">
+                        Con más de 15 años de experiencia en psicología clínica, ofrecemos un espacio seguro y profesional para tu desarrollo personal.
                       </p>
                     </div>
                     
                     <div>
-                      <h3 className="text-xl font-semibold text-white mb-2 flex items-center">
+                      <h3 className="text-xl font-semibold text-slate-800 mb-2 flex items-center">
                         <motion.div 
                           animate={{ rotate: [0, 5, -5, 5, 0] }}
                           transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
-                          className="mr-3 text-red-500"
+                          className="mr-3 text-blue-600"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                           </svg>
                         </motion.div>
-                        Get in Touch
+                        Contacto
                       </h3>
                       <div className="space-y-3 pl-9">
-                        <p className="text-white">contact@yourcoaching.com</p>
-                        <p className="text-white">+1 (555) 123-4567</p>
+                        <p className="text-slate-800">consultorio@draana.com</p>
+                        <p className="text-slate-800">+57 (1) 555-0123</p>
                       </div>
                     </div>
                     
                     <div className="pt-4">
-                      <h3 className="text-xl font-semibold text-white mb-3 flex items-center">
+                      <h3 className="text-xl font-semibold text-slate-800 mb-3 flex items-center">
                         <motion.div 
                           animate={{ y: [0, -5, 0] }}
                           transition={{ duration: 2, repeat: Infinity }}
-                          className="mr-3 text-red-500"
+                          className="mr-3 text-blue-600"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                         </motion.div>
-                        Response Time
+                        Tiempo de Respuesta
                       </h3>
                       <div className="flex items-center gap-2 pl-9">
-                        <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div className="w-full bg-slate-200 rounded-full h-2">
                           <motion.div 
-                            className="bg-gradient-to-r from-red-500 to-red-700 h-2 rounded-full"
+                            className="bg-gradient-to-r from-blue-600 to-blue-700 h-2 rounded-full"
                             initial={{ width: "0%" }}
                             whileInView={{ width: "90%" }}
                             transition={{ duration: 1.5, ease: "easeOut" }}
                           />
                         </div>
-                        <span className="text-white font-medium">24h</span>
+                        <span className="text-slate-800 font-medium">24h</span>
                       </div>
                     </div>
                   </div>
@@ -773,7 +782,7 @@ export default function HomePage() {
               {/* Right side form */}
               <AnimatedSection delay={0.3} className="md:col-span-3">
                 <motion.form 
-                  className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-gray-700/20 shadow-xl"
+                  className="bg-white p-8 rounded-xl border border-slate-200 shadow-xl"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
@@ -784,15 +793,15 @@ export default function HomePage() {
                       whileInView={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <label htmlFor="name" className="block text-sm font-medium text-white mb-1">
-                        Full Name
+                      <label htmlFor="name" className="block text-sm font-medium text-slate-800 mb-1">
+                        Nombre Completo
                       </label>
                       <motion.div 
                         whileHover={{ scale: 1.01 }} 
                         whileTap={{ scale: 0.99 }}
                         className="relative"
                       >
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                           </svg>
@@ -800,8 +809,8 @@ export default function HomePage() {
                         <input
                           type="text"
                           id="name"
-                          placeholder="Your Name"
-                          className="pl-10 block w-full rounded-md border-gray-600 bg-gray-700/50 px-4 py-3 text-white placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-400 transition-all duration-200"
+                          placeholder="Tu Nombre"
+                          className="pl-10 block w-full rounded-md border-slate-300 bg-slate-50 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all duration-200"
                         />
                       </motion.div>
                     </motion.div>
@@ -811,15 +820,15 @@ export default function HomePage() {
                       whileInView={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                      <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
-                        Email Address
+                      <label htmlFor="email" className="block text-sm font-medium text-slate-800 mb-1">
+                        Correo Electrónico
                       </label>
                       <motion.div 
                         whileHover={{ scale: 1.01 }} 
                         whileTap={{ scale: 0.99 }}
                         className="relative"
                       >
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                             <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
@@ -828,8 +837,8 @@ export default function HomePage() {
                         <input
                           type="email"
                           id="email"
-                          placeholder="you@example.com"
-                          className="pl-10 block w-full rounded-md border-gray-600 bg-gray-700/50 px-4 py-3 text-white placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-400 transition-all duration-200"
+                          placeholder="tu@ejemplo.com"
+                          className="pl-10 block w-full rounded-md border-slate-300 bg-slate-50 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all duration-200"
                         />
                       </motion.div>
                     </motion.div>
@@ -839,29 +848,30 @@ export default function HomePage() {
                       whileInView={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                      <label htmlFor="goal" className="block text-sm font-medium text-white mb-1">
-                        Your Fitness Goal
+                      <label htmlFor="goal" className="block text-sm font-medium text-slate-800 mb-1">
+                        Motivo de Consulta
                       </label>
                       <motion.div 
                         whileHover={{ scale: 1.01 }} 
                         whileTap={{ scale: 0.99 }}
                         className="relative"
                       >
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
                         </span>
                         <select
                           id="goal"
-                          className="pl-10 block w-full rounded-md border-gray-600 bg-gray-700/50 px-4 py-3 text-white placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-400 transition-all duration-200"
+                          className="pl-10 block w-full rounded-md border-slate-300 bg-slate-50 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all duration-200"
                           defaultValue=""
                         >
-                          <option value="" disabled>Select your primary goal</option>
-                          <option value="weight-loss">Weight Loss</option>
-                          <option value="muscle-gain">Muscle Gain</option>
-                          <option value="endurance">Endurance Training</option>
-                          <option value="sport">Sport-Specific Training</option>
+                          <option value="" disabled>Selecciona el motivo principal</option>
+                          <option value="ansiedad">Ansiedad</option>
+                          <option value="depresion">Depresión</option>
+                          <option value="relaciones">Problemas de Relación</option>
+                          <option value="estres">Estrés</option>
+                          <option value="otro">Otro</option>
                         </select>
                       </motion.div>
                     </motion.div>
@@ -871,15 +881,15 @@ export default function HomePage() {
                       whileInView={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.3 }}
                     >
-                      <label htmlFor="message" className="block text-sm font-medium text-white mb-1">
-                        Message
+                      <label htmlFor="message" className="block text-sm font-medium text-slate-800 mb-1">
+                        Mensaje
                       </label>
                       <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
                         <textarea
                           id="message"
                           rows={4}
-                          placeholder="Tell us about your fitness journey and goals"
-                          className="block w-full rounded-md border-gray-600 bg-gray-700/50 px-4 py-3 text-white placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-400 transition-all duration-200"
+                          placeholder="Cuéntanos sobre tu situación y objetivos"
+                          className="block w-full rounded-md border-slate-300 bg-slate-50 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all duration-200"
                         ></textarea>
                       </motion.div>
                     </motion.div>
@@ -894,26 +904,26 @@ export default function HomePage() {
                         type="submit"
                         whileHover={{ 
                           scale: 1.03, 
-                          boxShadow: "0 10px 25px -5px rgba(239, 68, 68, 0.4)" 
+                          boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.4)" 
                         }}
                         whileTap={{ scale: 0.97 }}
-                        className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 py-4 rounded-xl font-semibold text-lg shadow-lg transition-all duration-300 relative overflow-hidden group"
+                        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 py-4 rounded-xl font-semibold text-lg shadow-lg transition-all duration-300 relative overflow-hidden group"
                       >
                         <motion.span
-                          className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-600 to-red-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         />
                         <motion.span 
                           className="relative flex items-center justify-center"
                         >
-                          Submit Request
+                          Enviar Consulta
                           <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                           </svg>
                         </motion.span>
                       </motion.button>
                       
-                      <p className="text-center text-sm text-gray-400 mt-4">
-                        We'll respond to your inquiry within 24 hours
+                      <p className="text-center text-sm text-slate-500 mt-4">
+                        Responderemos a tu consulta en menos de 24 horas
                       </p>
                     </motion.div>
                   </div>
@@ -924,23 +934,21 @@ export default function HomePage() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-20">
+        <section id="sobre-mi" className="py-20 bg-slate-50">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-              About <span className="text-red-500">Us</span>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-800">
+              Sobre <span className="text-blue-600">Mí</span>
             </h2>
-            <p className="max-w-2xl mx-auto text-gray-300 text-lg">
-              At <span className="font-semibold text-red-500">Your Coaching</span>, we blend expert fitness training with a passion for health.
-              Our mission is to empower you to reach new heights, both physically and mentally.
-              Experience a revolutionary approach to fitness that drives real, measurable results.
+            <p className="max-w-2xl mx-auto text-slate-600 text-lg">
+              Como psicóloga clínica con más de 15 años de experiencia, me especializo en acompañar a mis pacientes en su camino hacia el bienestar emocional. Mi enfoque integra técnicas terapéuticas basadas en evidencia con un ambiente seguro y empático.
             </p>
           </div>
         </section>
 
          {/* Footer */}
-         <footer className="py-8 bg-black">
-          <div className="container mx-auto px-4 text-center text-gray-500">
-            &copy; {new Date().getFullYear()} Your Coaching. All rights reserved.
+         <footer className="py-8 bg-white">
+          <div className="container mx-auto px-4 text-center text-slate-500">
+            &copy; {new Date().getFullYear()} Dra. Ana - Psicóloga Clínica. Todos los derechos reservados.
           </div>
         </footer>
               

@@ -22,7 +22,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { createDefaultSchedule } from "@/server/actions/schedule"
 import { ScheduleAvailabilityTable } from "@/drizzle/schema"
-import { Video, MapPin } from "lucide-react"
+import { Video, MapPin, ArrowLeft } from "lucide-react"
 
 export const revalidate = 0
 
@@ -95,18 +95,60 @@ export default async function BookEventPage({
   }
 
   return (
-    <ClientBooking
-      event={event}
-      userName={calendarUser.fullName}
-      userId={clerkUserId}
-    >
-      <MeetingForm
-        validTimes={validTimes}
-        eventId={event.id}
-        clerkUserId={clerkUserId}
-        locationType={event.locationType}
-      />
-    </ClientBooking>
+    <div className="min-h-screen bg-slate-50 py-12">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-6">
+                <h1 className="text-3xl font-bold text-slate-800">
+                  Agenda {event.name} con {calendarUser.fullName}
+                </h1>
+                <Link href={`/book/${clerkUserId}`}>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="flex items-center gap-2 bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                    Volver
+                  </Button>
+                </Link>
+              </div>
+              
+              {event.description && (
+                <p className="text-slate-600 mb-6">
+                  {event.description}
+                </p>
+              )}
+              
+              {event.locationType && (
+                <div className="flex items-center gap-2 mb-6 text-slate-600">
+                  {event.locationType === "virtual" ? (
+                    <>
+                      <Video className="h-5 w-5 text-blue-500" />
+                      <span>Esta es una sesión virtual a través de Google Meet</span>
+                    </>
+                  ) : (
+                    <>
+                      <MapPin className="h-5 w-5 text-blue-500" />
+                      <span>Esta es una sesión presencial</span>
+                    </>
+                  )}
+                </div>
+              )}
+              
+              <MeetingForm
+                validTimes={validTimes}
+                eventId={event.id}
+                clerkUserId={clerkUserId}
+                locationType={event.locationType}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

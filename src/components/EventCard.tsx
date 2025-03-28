@@ -47,7 +47,7 @@ export default function EventCard({
   // Set glow color based on event type
   const glowColor = locationType === "virtual" 
     ? "59, 130, 246" // blue for virtual
-    : "239, 68, 68";  // red for in-person
+    : "20, 184, 166";  // teal for in-person
 
   return (
     <>
@@ -66,56 +66,36 @@ export default function EventCard({
         onClick={navigateToBooking}
         className="cursor-pointer"
       >
-        <Card className={cn(
-          "flex flex-col h-full transform transition-all duration-300 bg-gray-700/90 border-gray-700 group",
-          !isActive && "opacity-70"
-        )}>
-          <CardHeader className={cn("bg-gradient-to-r from-gray-700 to-gray-600 rounded-t-lg transition-all duration-300", 
-            locationType === "virtual" 
-              ? "group-hover:from-blue-900/30 group-hover:to-blue-800/20" 
-              : "group-hover:from-red-900/30 group-hover:to-red-800/20", 
-            !isActive && "opacity-50"
-          )}>
-            <CardTitle className="flex items-center text-xl text-white">
-              <span className={cn(
-                "transition-colors duration-300 mr-2", 
-                locationType === "virtual" ? "text-blue-400 group-hover:text-blue-300" : "text-red-400 group-hover:text-red-300"
-              )}>•</span> 
-              {name}
-            </CardTitle>
-            <CardDescription className="flex items-center mt-2 text-gray-200">
-              <Clock className={cn(
-                "mr-2 h-4 w-4 transition-colors duration-300", 
-                locationType === "virtual" ? "text-blue-300 group-hover:text-blue-200" : "text-red-300 group-hover:text-red-200"
-              )} />
+        <Card className="h-full bg-white border-slate-200">
+          <CardHeader className="p-6">
+            <CardTitle className="text-xl text-slate-800">{name}</CardTitle>
+            <CardDescription className="flex items-center text-slate-600">
+              <Clock className="h-4 w-4 mr-2" />
               {formatEventDescription(durationInMinutes)}
-              
               {locationType === "virtual" && (
-                <span className="ml-4 flex items-center">
-                  <Video className="mr-1 h-4 w-4 text-blue-300 group-hover:text-blue-200 transition-colors duration-300" />
-                  <span className="text-blue-300 group-hover:text-blue-200 transition-colors duration-300">Virtual</span>
+                <span className="ml-2 flex items-center text-blue-500">
+                  <Video className="h-4 w-4 mr-1" />
+                  Virtual
                 </span>
               )}
             </CardDescription>
           </CardHeader>
-          
-          {description != null && (
-            <CardContent className={cn("py-4 flex-grow", !isActive && "opacity-50")}>
-              <p className="text-white">{description}</p>
+          {description && (
+            <CardContent className="p-6 pt-0">
+              <p className="text-slate-600">{description}</p>
             </CardContent>
           )}
-          
-          <CardFooter className="flex justify-center mt-auto p-4">
+          <CardFooter className="flex justify-center mt-auto p-6 pt-0">
             <Button 
               size="lg"
               className={cn(
                 "font-medium px-6 py-2 rounded-full flex items-center gap-2 transition-all duration-300 group shadow-md w-full justify-center",
                 locationType === "virtual"
-                  ? "bg-blue-500 hover:bg-blue-600 text-white"
-                  : "bg-red-500 hover:bg-red-600 text-white"
+                  ? "bg-blue-600 hover:bg-blue-700 text-white"
+                  : "bg-teal-600 hover:bg-teal-700 text-white"
               )}
             >
-              Book Now
+              Reservar Ahora
               <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
             </Button>
           </CardFooter>

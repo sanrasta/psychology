@@ -65,7 +65,7 @@ export function EventForm({ event }: EventFormProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {form.formState.errors.root && (
-          <div className="text-destructive text-sm">
+          <div className="text-red-500 text-sm">
             {form.formState.errors.root.message}
           </div>
         )}
@@ -75,12 +75,16 @@ export function EventForm({ event }: EventFormProps) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Event Name</FormLabel>
+              <FormLabel className="text-slate-700">Nombre de la Consulta</FormLabel>
               <FormControl>
-                <Input placeholder="Quick consultation call" {...field} />
+                <Input 
+                  placeholder="Ej: Consulta Inicial" 
+                  className="bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400"
+                  {...field} 
+                />
               </FormControl>
-              <FormDescription>
-                What is this event called?
+              <FormDescription className="text-slate-500">
+                ¿Cómo se llamará esta consulta?
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -92,17 +96,17 @@ export function EventForm({ event }: EventFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel className="text-slate-700">Descripción</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="A short 15-minute call to discuss your goals."
-                  className="resize-none"
+                  placeholder="Una breve descripción de la consulta."
+                  className="bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400 resize-none"
                   {...field}
                   value={field.value ?? ""}
                 />
               </FormControl>
-              <FormDescription>
-                A brief description of the event.
+              <FormDescription className="text-slate-500">
+                Describe brevemente en qué consiste esta consulta.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -114,16 +118,17 @@ export function EventForm({ event }: EventFormProps) {
           name="durationInMinutes"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Duration (minutes)</FormLabel>
+              <FormLabel className="text-slate-700">Duración (minutos)</FormLabel>
               <FormControl>
                 <Input
                   type="number"
+                  className="bg-slate-50 border-slate-200 focus:border-blue-400 focus:ring-blue-400"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value))}
                 />
               </FormControl>
-              <FormDescription>
-                How long is this event?
+              <FormDescription className="text-slate-500">
+                ¿Cuánto tiempo dura esta consulta?
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -135,7 +140,7 @@ export function EventForm({ event }: EventFormProps) {
           name="locationType"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Location Type</FormLabel>
+              <FormLabel className="text-slate-700">Tipo de Consulta</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -144,22 +149,22 @@ export function EventForm({ event }: EventFormProps) {
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="in-person" id="in-person" />
-                    <label htmlFor="in-person" className="flex items-center cursor-pointer">
-                      <MapPin className="h-4 w-4 mr-2 text-primary" />
-                      In Person
+                    <label htmlFor="in-person" className="flex items-center cursor-pointer text-slate-700">
+                      <MapPin className="h-4 w-4 mr-2 text-teal-500" />
+                      Presencial
                     </label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="virtual" id="virtual" />
-                    <label htmlFor="virtual" className="flex items-center cursor-pointer">
-                      <Video className="h-4 w-4 mr-2 text-primary" />
+                    <label htmlFor="virtual" className="flex items-center cursor-pointer text-slate-700">
+                      <Video className="h-4 w-4 mr-2 text-blue-500" />
                       Virtual (Google Meet)
                     </label>
                   </div>
                 </RadioGroup>
               </FormControl>
-              <FormDescription>
-                Choose whether this event will be in-person or virtual. Virtual events will automatically generate a Google Meet link.
+              <FormDescription className="text-slate-500">
+                Elige si la consulta será presencial o virtual. Las consultas virtuales generarán automáticamente un enlace de Google Meet.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -170,11 +175,11 @@ export function EventForm({ event }: EventFormProps) {
           control={form.control}
           name="isActive"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border border-slate-200 p-4 bg-slate-50">
               <div className="space-y-0.5">
-                <FormLabel className="text-base">Active</FormLabel>
-                <FormDescription>
-                  Deactivate to temporarily hide this event from booking.
+                <FormLabel className="text-base text-slate-700">Activa</FormLabel>
+                <FormDescription className="text-slate-500">
+                  Desactiva para ocultar temporalmente esta consulta de la reserva.
                 </FormDescription>
               </div>
               <FormControl>
@@ -194,31 +199,36 @@ export function EventForm({ event }: EventFormProps) {
                 <Button
                   variant="destructiveGhost"
                   disabled={isDeletePending || form.formState.isSubmitting}
+                  className="text-red-500 hover:text-red-600 hover:bg-red-50"
                 >
-                  Delete
+                  Eliminar
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                  <AlertDialogDescription>this action cannot be undone</AlertDialogDescription>
+                  <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                  <AlertDialogDescription>Esta acción no se puede deshacer</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
                   <AlertDialogAction
                     disabled={isDeletePending || form.formState.isSubmitting}
                     variant="destructive"
                     onClick={onDelete}
                   >
-                    Delete
+                    Eliminar
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
           )}
 
-          <Button type="submit" disabled={isDeletePending || form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? "Saving..." : "Save Event"}
+          <Button 
+            type="submit" 
+            disabled={isDeletePending || form.formState.isSubmitting}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            {form.formState.isSubmitting ? "Guardando..." : "Guardar Consulta"}
           </Button>
         </div>
       </form>
