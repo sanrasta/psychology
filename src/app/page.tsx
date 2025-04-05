@@ -12,7 +12,7 @@ import Loading from "@/components/Loading";
 // Simple static logo component instead of animated version
 function Logo() {
   return (
-    <div className="flex flex-col items-center space-y-3 mt-4 sm:mt-0">
+    <div className="flex flex-col items-center justify-center w-full h-full absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
       <div className="flex items-center space-x-1">
         <div className="w-5 h-5 bg-teal-400 rounded-sm"></div>
         <div className="w-5 h-5 bg-blue-500 rounded-sm"></div>
@@ -163,11 +163,20 @@ export default function HomePage() {
               onClick={scrollToTop}
             >
               {isSignedIn ? (
-                <div className="w-[50px] h-[50px]">
+                <div className="w-[50px] h-[50px] mt-6">
                   <UserButton afterSignOutUrl="/" />
                 </div>
               ) : (
-                <Image src="/blanca.JPG" alt="Logo" width={50} height={50} className="rounded-full" />
+                <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
+                  <Image 
+                    src="/blanca.JPG" 
+                    alt="Logo" 
+                    width={50} 
+                    height={50} 
+                    className="object-cover w-full h-full"
+                    style={{ aspectRatio: '1/1' }}
+                  />
+                </div>
               )}
               <span className="text-2xl font-bold text-slate-800">
                 Dra. <span className="text-blue-600">Blanca Stella</span>
@@ -377,14 +386,12 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-slate-50/30 via-slate-50/20 to-slate-50"></div>
 
           {/* Content restructured for better positioning */}
-          <div className="relative z-10 flex flex-col items-center justify-start h-full w-full px-4 max-w-5xl mx-auto pt-16">
-            {/* Logo at the top */}
-            <div className="mb-8">
-              <Logo />
-            </div>
+          <div className="relative z-10 flex flex-col items-center justify-center h-full w-full px-4 max-w-5xl mx-auto">
+            {/* Logo at the center */}
+            <Logo />
             
             {/* Lower text section */}
-            <div className="flex flex-col items-center mt-auto mb-16">
+            <div className="flex flex-col items-center mt-auto mb-16 pt-20 md:pt-0">
               <div className="mb-8">
                 <AnimatedText />
               </div>
